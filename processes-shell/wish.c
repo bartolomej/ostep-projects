@@ -13,6 +13,7 @@ typedef struct
 } Command;
 
 void parse_command(Command *parsed_command, const char *program);
+void init_command(Command *parsed_command);
 int get_next_word_length(const char *array);
 
 int main(int argc, char *argv[])
@@ -20,13 +21,17 @@ int main(int argc, char *argv[])
     char command[] = " ls ";
     Command parsed_command;
 
-    int max_command_length = 10;
-    parsed_command.path = malloc(sizeof(char) * max_command_length + 1);
-
+    init_command(&parsed_command);
     parse_command(&parsed_command, command);
 
     printf("Command path: %s\n", parsed_command.path);
     printf("Command argc: %d\n", parsed_command.argc);
+}
+
+void init_command(Command* parsed_command)
+{
+    parsed_command->path = NULL;
+    parsed_command->argc = 0;
 }
 
 void parse_command(Command *parsed_command, const char *command)
@@ -51,6 +56,7 @@ void parse_command(Command *parsed_command, const char *command)
             // First argument is the command executable path.
             if (argc == 0)
             {
+                parsed_command->path = malloc(sizeof(char) * arg_length + 1);
                 strncpy(parsed_command->path, arg, arg_length);
             }
 
