@@ -12,7 +12,7 @@ typedef struct
     char *argv[];
 } Command;
 
-void parse_command(Command parsed_command, const char *program);
+void parse_command(Command *parsed_command, const char *program);
 int get_next_word_length(const char *array);
 
 int main(int argc, char *argv[])
@@ -23,13 +23,13 @@ int main(int argc, char *argv[])
     int max_command_length = 10;
     parsed_command.path = malloc(sizeof(char) * max_command_length + 1);
 
-    parse_command(parsed_command, command);
+    parse_command(&parsed_command, command);
 
     printf("Command path: %s\n", parsed_command.path);
     printf("Command argc: %d\n", parsed_command.argc);
 }
 
-void parse_command(Command parsed_command, const char *command)
+void parse_command(Command *parsed_command, const char *command)
 {
     int start = 0, end = 0, index = 0, argc = 0;
     while (index < strlen(command))
@@ -51,14 +51,14 @@ void parse_command(Command parsed_command, const char *command)
             // First argument is the command executable path.
             if (argc == 0)
             {
-                strncpy(parsed_command.path, arg, arg_length);
+                strncpy(parsed_command->path, arg, arg_length);
             }
 
             argc++;
         }
     }
 
-    parsed_command.argc = argc;
+    parsed_command->argc = argc;
 }
 
 int get_next_word_length(const char *array)
