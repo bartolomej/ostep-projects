@@ -18,7 +18,7 @@ int get_next_word_length(const char *array);
 
 int main(int argc, char *argv[])
 {
-    char command[] = " ls ";
+    char command[] = " ls -l -h ";
     Command parsed_command;
 
     init_command(&parsed_command);
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     printf("Command argc: %d\n", parsed_command.argc);
 }
 
-void init_command(Command* parsed_command)
+void init_command(Command *parsed_command)
 {
     parsed_command->path = NULL;
     parsed_command->argc = 0;
@@ -40,7 +40,7 @@ void parse_command(Command *parsed_command, const char *command)
     while (index < strlen(command))
     {
         // Pointer to the start of the current command argument.
-        const char *arg = command + start;
+        const char *arg = command + index;
         switch (arg[0])
         {
         case ' ':
