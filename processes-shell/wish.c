@@ -1,5 +1,6 @@
 #include "command.h"
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -14,6 +15,12 @@ int main(int argc, char *argv[])
     {
         printf("> ");
         int bytes_read = getline(&line, &line_length, stdin);
+
+        if (strcmp(line, "exit\n") == 0)
+        {
+            exit(0);
+        }
+        
 
         init_command(&parsed_command);
         parse_command(&parsed_command, line);

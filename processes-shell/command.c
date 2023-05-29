@@ -63,7 +63,7 @@ int get_next_word_length(const char *array)
     int word_length = 0;
     while (word_length < strlen(array))
     {
-        if (array[word_length] == ' ')
+        if (array[word_length] == ' ' || array[word_length] == '\n')
         {
             break;
         }
