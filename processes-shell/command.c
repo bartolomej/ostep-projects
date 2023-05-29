@@ -19,7 +19,9 @@ void parse_command(Command *parsed_command, const char *command)
         const char *arg = command + index;
         switch (arg[0])
         {
+        // Ignore whitespace
         case ' ':
+        case '\n':
             index++;
             start = index;
             break;
